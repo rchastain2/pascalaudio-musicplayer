@@ -1,2 +1,3 @@
-# pascalaudio-musicplayer
-Simple music player based upon PascalAudio and MSEgui
+# PascalAudio Music Player
+
+Simple Music Player based upon [PascalAudio](https://github.com/andrewd207/PascalAudio) and [MSEgui](https://github.com/mse-org/mseide-msegui).

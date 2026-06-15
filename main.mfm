@@ -1,0 +1,93 @@
+object mainfo: tmainfo
+  bounds_x = 505
+  bounds_y = 209
+  bounds_cx = 632
+  bounds_cy = 580
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    17
+    632
+    563
+  )
+  mainmenu = mm_menu
+  windowopacity = -Inf
+  oncreate = mainfo_oncreate
+  onkeyup = mainfo_onkeyup
+  moduleclassname = 'tmainform'
+  object bt_quit: tbutton
+    bounds_x = 536
+    bounds_y = 512
+    bounds_cx = 80
+    bounds_cy = 24
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Quit'
+    onexecute = bt_quit_onexecute
+  end
+  object pb_progress: tprogressbar
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 472
+    bounds_cx = 600
+    bar_face.fade_pos.count = 1
+    bar_face.fade_pos.items = (
+      0
+    )
+    bar_face.fade_color.count = 1
+    bar_face.fade_color.items = (
+      -1610612715
+    )
+    bar_face.localprops = []
+    bar_frame.localprops = []
+    bar_frame.localprops1 = []
+    valuerange = 100
+    format = '0%'
+  end
+  object lb_appname: tlabel
+    taborder = 2
+    bounds_x = 16
+    bounds_y = 16
+    bounds_cx = 350
+    bounds_cy = 22
+    caption = 'MSEgui Music Player using PascalAudio'
+    font.height = 18
+    font.name = 'stf_default'
+    font.localprops = [flp_height]
+    reffontheight = 22
+  end
+  object mm_menu: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'Quit'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = bt_quit_onexecute
+          end>
+        caption = 'Music Player'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'About'
+            state = [as_localcaption]
+          end>
+        caption = 'Help'
+        state = [as_localcaption]
+      end>
+    left = 24
+    top = 512
+  end
+  object tm_timer: ttimer
+    ontimer = tm_timer_ontimer
+    left = 136
+    top = 512
+  end
+end
