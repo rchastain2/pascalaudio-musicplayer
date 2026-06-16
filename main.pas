@@ -6,8 +6,9 @@ unit main;
 interface
 
 uses
-  SysUtils,
-  Classes,
+  sysutils,
+  classes,
+  
   msetypes,
   mseglob,
   mseguiglob,
@@ -46,8 +47,20 @@ uses
   msefileutils, {searchfiles}
   mseformatstr, {inttostrmse}
   msekeyboard, {KEY_*}
-  msestrings; {stringtoutf8}
-
+  msestrings, {stringtoutf8}
+  msearrayutils, {sortarray}
+  
+  pa_base,
+  pa_stream,
+  pa_dec_oggvorbis,
+  pa_flac,
+  pa_wav,
+  pa_m4a,
+  pa_register,
+  pa_pulse_simple,
+  
+  log;
+  
 type
   tmainfo = class(tmainform)
     bt_quit: tbutton;
@@ -58,9 +71,12 @@ type
     procedure mainfo_oncreate(const sender: TObject);
     procedure bt_quit_onexecute(const sender: TObject);
     procedure mainfo_onkeyup(const sender: twidget; var ainfo: keyeventinfoty);
-   procedure tm_timer_ontimer(const sender: TObject);
+    procedure tm_timer_ontimer(const sender: TObject);
   private
-    lfiles: filenamearty;
+    fsource: TPAStreamSource;
+    fdest: TPAAudioDestination;
+    ffilelist: filenamearty;
+    ffileindex: integer;
     procedure addfiletolist(const afilename: filenamety);
     procedure playfile(const afilename: filenamety);
   end;
@@ -71,120 +87,126 @@ var
 implementation
 
 uses
-  main_mfm,
-  Log,
-  pa_base,
-  pa_stream,
-  pa_dec_oggvorbis,
-  pa_flac,
-  pa_wav,
-  pa_m4a,
-  pa_register,
-  pa_pulse_simple;
-
-var
-  FSource: TPAStreamSource;
-  FDest: TPAAudioDestination;
+  main_mfm;
 
 procedure tmainfo.mainfo_oncreate(const sender: TObject);
 const
-  cextensions: msestringarty = ('flac', 'ogg', 'opus', 'wav');
+  cextensions: msestringarty = (
+    'flac',
+    'ogg',
+    'opus',
+    'wav'
+  );
 var
   larguments: msestringarty;
-  i: integer;
+  lfilelist: filenamearty;
   lfilename: filenamety;
-  lfiles1: filenamearty;
+  i: integer;
 begin
-  setlength(lfiles, 0);
+  setlength(ffilelist, 0);
+  ffileindex := 0;
+  
   larguments := getcommandlinearguments;
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
     begin
-      LogLn('[DEBUG] Directory: ' + larguments[i]);
+      logln('[DEBUG] Detect directory ' + larguments[i]);
 
-      lfiles1 := searchfiles('*', larguments[i]);
-      for lfilename in lfiles1 do
-      begin
+      lfilelist := searchfiles('*', larguments[i]);
+      for lfilename in lfilelist do
         if checkfileext(lfilename, cextensions) then
-        begin
           addfiletolist(lfilename);
-        end;
-      end;
-      LogLn('[DEBUG] Files count: ' + inttostrmse(length(lfiles)));
     end
     else if fileexists(larguments[i]) then
     begin
-      LogLn('[DEBUG] File: ' + larguments[i]);
-      addfiletolist(larguments[i]);
+      logln('[DEBUG] Detect file ' + larguments[i]);
+      
+      if checkfileext(lfilename, cextensions) then
+        addfiletolist(larguments[i]);
     end
     else
-      LogLn('[DEBUG] Unexpected parameter: ' + larguments[i]);
+      logln('[DEBUG] Ignore parameter ' + larguments[i]);
   
-  // quick test
-  if length(lfiles) > 0 then
+  logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
+  
+  if length(ffilelist) = 0 then
+    logln('[DEBUG] No music to play')
+  else
   begin
-    playfile(lfiles[0]);
-    tm_timer.enabled := true;
+    sortarray(ffilelist);
+    playfile(ffilelist[0]);
+    tm_timer.enabled := TRUE;
   end;
 end;
 
 procedure tmainfo.bt_quit_onexecute(const sender: TObject);
 begin
-  application.terminated := true;
+  application.terminated := TRUE;
 end;
 
 procedure tmainfo.mainfo_onkeyup(const sender: twidget; var ainfo: keyeventinfoty);
 begin
-  LogLn(unicodeformat('[DEBUG] mainfo_onkeyup(%d)', [ainfo.key]));
+  logln(unicodeformat('[DEBUG] mainfo_onkeyup(%d)', [ainfo.key]));
 
   case ainfo.key of
     KEY_ESCAPE:
-      ;
+      application.terminated := TRUE;
   end;
 end;
 
 procedure tmainfo.addfiletolist(const afilename: filenamety);
 begin
-  LogLn('[DEBUG] Add file ' + afilename);
-  setlength(lfiles, length(lfiles) + 1);
-  lfiles[high(lfiles)] := afilename;
+  logln('[DEBUG] Add file ' + afilename);
+  setlength(ffilelist, length(ffilelist) + 1);
+  ffilelist[high(ffilelist)] := afilename;
 end;
 
 procedure tmainfo.playfile(const afilename: filenamety);
 var
   lfilename: string;
 begin
-  LogLn('[DEBUG] play file ' + afilename);
-  if Assigned(FSource) then
-  begin
-    FSource.Free;
-  end;
+  logln('[DEBUG] Play ' + afilename);
+  if assigned(fsource) then
+    fsource.Free;
   lfilename := stringtoutf8(afilename);
-  FSource := PARegisteredGetDecoderClass(lfilename, False).Create(TFileStream.Create(lfilename, fmOpenRead));
-  if not Assigned(FDest) then
-    FDest := PARegisteredGetDeviceOut('').Create;
-  FDest.DataSource := FSource;
-  FSource.StartData;
+  fsource := PARegisteredGetDecoderClass(lfilename, FALSE).Create(TFileStream.Create(lfilename, fmOpenRead));
+  if not assigned(fdest) then
+    fdest := PARegisteredGetDeviceOut('').Create;
+  fdest.DataSource := fsource;
+  fsource.StartData;
 end;
 
 procedure tmainfo.tm_timer_ontimer(const sender: TObject);
 var
-  Playable: IPAPlayable;
-  PosMax, PosCurrent: Double;
+  lplayable: IPAPlayable;
+  lpos, lposmax: Double;
 begin
-  if Assigned(FSource) then
-    if FSource.GetInterface('IPAPlayable', Playable) then
+  if assigned(fdest) then
+    if not fdest.Working then
+      if ffileindex = high(ffilelist) then
+      begin
+        logln('[DEBUG] No more music to play');
+        tm_timer.enabled := FALSE;
+        exit;
+      end else
+      begin
+        inc(ffileindex);
+        playfile(ffilelist[ffileindex]);
+      end;
+  
+  if assigned(fsource) then
+    if fsource.GetInterface('IPAPlayable', lplayable) then
     begin
-      PosMax := Playable.GetMaxPosition;
-      PosCurrent := Playable.GetPosition;
+      lpos := lplayable.GetPosition;
+      lposmax := lplayable.GetMaxPosition;
       
-     {ProgressBar1.Max := Trunc(PosMax * 100);
-      ProgressBar1.Position := Trunc(PosCurrent * 100);}
+      if lposmax = 0 then
+        pb_progress.value := 0
+      else
+        pb_progress.value := lpos / lposmax;
       
-      pb_progress.value := PosCurrent / PosMax;
-      
-     {lblPosition.Text := SecondsToTime(PosCurrent);
-      lblTotal.Text := SecondsToTime(PosMax);}
+     {lblPosition.Text := SecondsToTime(lpos);
+      lblTotal.Text := SecondsToTime(lposmax);}
     end;
 end;
 
