@@ -2,3 +2,9 @@
 examples/
 pascalaudio/
 pulseaudio/
+
+*.bak
+*.dbg
+*.log
+*.o
+*.ppu

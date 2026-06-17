@@ -1,0 +1,108 @@
+object mainfo: tmainfo
+  bounds_x = 505
+  bounds_y = 209
+  bounds_cx = 432
+  bounds_cy = 240
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    17
+    432
+    223
+  )
+  mainmenu = mm_menu
+  caption = 'PascalAudio Music Player'
+  windowopacity = -Inf
+  oncreate = mainfo_oncreate
+  onclose = mainfo_onclose
+  onterminatequery = mainfo_onterminatequery
+  onterminated = mainfo_onterminated
+  onkeyup = mainfo_onkeyup
+  moduleclassname = 'tmainform'
+  object bt_quit: tbutton
+    bounds_x = 336
+    bounds_y = 160
+    bounds_cx = 80
+    bounds_cy = 24
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Quit'
+    onexecute = bt_quit_onexecute
+  end
+  object pb_progress: tprogressbar
+    frame.caption = 'Current track'
+    frame.localprops = [frl_colorframe, frl_colorframeactive, frl_colorclient]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      18
+      0
+      0
+    )
+    taborder = 1
+    bounds_x = 16
+    bounds_y = 94
+    bounds_cx = 400
+    bounds_cy = 38
+    bar_face.fade_pos.count = 1
+    bar_face.fade_pos.items = (
+      0
+    )
+    bar_face.fade_color.count = 1
+    bar_face.fade_color.items = (
+      -1610612715
+    )
+    bar_face.localprops = []
+    bar_frame.localprops = []
+    bar_frame.localprops1 = []
+    valuerange = 100
+    format = '0%'
+  end
+  object lb_appname: tlabel
+    color = -2147483645
+    taborder = 2
+    bounds_x = 16
+    bounds_y = 16
+    bounds_cx = 252
+    bounds_cy = 24
+    caption = 'PascalAudio Music Player'
+    font.colorbackground = -2147483645
+    font.height = 20
+    font.name = 'stf_default'
+    font.localprops = [flp_colorbackground, flp_height]
+    reffontheight = 24
+  end
+  object mm_menu: tmainmenu
+    menu.submenu.count = 2
+    menu.submenu.items = <    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'Quit'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = bt_quit_onexecute
+          end>
+        caption = 'Player'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 1
+        submenu.items = <        
+          item
+            caption = 'About'
+            state = [as_localcaption, as_localonexecute]
+            onexecute = item_about_onexecute
+          end>
+        caption = 'Help'
+        state = [as_localcaption, as_localonexecute]
+      end>
+    left = 16
+    top = 160
+  end
+  object tm_timer: ttimer
+    ontimer = tm_timer_ontimer
+    left = 128
+    top = 160
+  end
+end
