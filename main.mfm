@@ -18,10 +18,6 @@ object mainfo: tmainfo
   onkeyup = mainfo_onkeyup
   moduleclassname = 'tmainform'
   object bt_quit: tbutton
-    frame.levelo = 1
-    frame.leveli = -1
-    frame.localprops = [frl_levelo, frl_leveli]
-    frame.localprops1 = []
     bounds_x = 336
     bounds_y = 160
     bounds_cx = 80

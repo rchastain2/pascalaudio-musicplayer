@@ -725,7 +725,7 @@ windowlayout=551
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=_mse_mainfo_mse_
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -739,7 +739,7 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -945,7 +945,7 @@ windowlayout=551
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=componentpalettefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -959,13 +959,13 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=379
- width0=140
+ propcolwidthref=364
+ width0=134
  sortdescend0=0
- width1=233
+ width1=224
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1188,7 +1188,7 @@ windowlayout=551
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0

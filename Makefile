@@ -9,27 +9,21 @@ else
 OS := linux
 endif
 
-ifdef OBSERVER
-PASCALAUDIO=pascalaudio-observer
-else
-PASCALAUDIO=pascalaudio
-endif
-
 PC := fpc
 PFLAGS := -Mobjfpc -Sh
 PFLAGS += -Fu$(MSEGUI)/lib/common/*
 PFLAGS += -Fu$(MSEGUI)/lib/common/kernel/$(OS)
-PFLAGS += -Fu$(PASCALAUDIO)/pascalaudioio
-PFLAGS += -Fu$(PASCALAUDIO)/pascalaudiosuite
+PFLAGS += -Fupascalaudio/pascalaudioio
+PFLAGS += -Fupascalaudio/pascalaudiosuite
 PFLAGS += -Fupulseaudio
 PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
 
 ifdef DEBUG
-PFLAGS += -dDEBUG
-PFLAGS += -Sa
-PFLAGS += -ghl
-PFLAGS += -vwhilq
+#PFLAGS += -dDEBUG
+#PFLAGS += -Sa
+#PFLAGS += -ghl
+#PFLAGS += -vwhilq
 else
 PFLAGS += -dRELEASE
 #PFLAGS += -vm6058
@@ -54,5 +48,4 @@ distclean: clean
 
 clone:
 	git clone --single-branch --depth 1 https://github.com/andrewd207/PascalAudio.git pascalaudio
-	git clone --single-branch --depth 1 --branch add-observer-link https://github.com/andrewd207/PascalAudio.git pascalaudio-observer
 	git clone --single-branch --depth 1 https://github.com/andrewd207/fpc-pulseaudio.git pulseaudio
