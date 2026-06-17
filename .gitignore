@@ -1,6 +1,5 @@
-experiment/
+
+examples/
 pascalaudio/
-pascalaudio-observer/
+player-console/
 pulseaudio/
-musicplayer
-musicplayer.log
