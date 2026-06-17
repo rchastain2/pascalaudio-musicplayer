@@ -17,8 +17,8 @@ order14=0
 order15=0
 order16=0
 [projectoptions]
-projectdir=/home/roland/Documents/audio/pascalaudio-musicplayer
-projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/musicplayer.prj
+projectdir=/home/roland/Documents/audio/pascalaudio-musicplayer/player
+projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/player/musicplayer.prj
 options=135
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -124,7 +124,7 @@ options=135
  sortdescend8=0
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=1
+ index=2
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=783
  width0=47
@@ -282,9 +282,9 @@ targetfile=${PROJECTNAME}${EXEEXT}
 makecommand=${COMPILER}
 makedir=
 unitdirs=6
- pulseaudio
- $PASCALAUDIO/pascalaudiosuite
- $PASCALAUDIO/pascalaudioio
+ ../pulseaudio
+ ../pascalaudio/pascalaudiosuite
+ ../pascalaudio/pascalaudioio
  ${MSEDIR}lib/addon/*/
  ${MSELIBDIR}kernel/$TARGETOSDIR/
  ${MSELIBDIR}*/
@@ -327,15 +327,9 @@ unitdirson=6
  65599
  65599
 uid=0
-macroon=2
- 1
- 2
-macronames=2
- PASCALAUDIO
- PASCALAUDIO
-macrovalues=2
- pascalaudio
- pascalaudio-observer
+macroon=0
+macronames=0
+macrovalues=0
 groupcomments=6
  
  
@@ -560,7 +554,7 @@ modulenames=1
 moduletypes=1
  TMAINFO
 modulefiles=1
- /home/roland/Documents/audio/pascalaudio-musicplayer/main.mfm
+ /home/roland/Documents/audio/pascalaudio-musicplayer/player/main.mfm
 macrogroup=0
 forcezorder=0
 stripmessageesc=0
@@ -644,7 +638,7 @@ findhistory=0
 findoptions=1
 editpos=5
  0,-1073741823
- 3,136
+ 2,54
  0,-1073741823
  0,-1073741823
  0,-1073741823
@@ -655,7 +649,7 @@ bookmarks3=0
 bookmarks4=0
 sourcefiles=5
  /D:/pascal/msegui/musicplayer-project/musicplayer.pas
- /home/roland/Documents/audio/pascalaudio-musicplayer/main.pas
+ /home/roland/Documents/audio/pascalaudio-musicplayer/player/main.pas
  /home/roland/Documents/audio/pascalaudio-musicplayer/log.pas
  /D:/pascal/msegui/musicplayer-project/version.pas
  /home/roland/Documents/audio/pascalaudio-musicplayer/musicplayer.pas
@@ -672,7 +666,7 @@ ismoduletexts=5
  0
  0
 modules=1
- /home/roland/Documents/audio/pascalaudio-musicplayer/main.mfm
+ /home/roland/Documents/audio/pascalaudio-musicplayer/player/main.mfm
 moduleoptions=1
  0
 visiblemodules=1
@@ -725,7 +719,7 @@ windowlayout=551
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=componentpalettefo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -739,7 +733,7 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -945,7 +939,7 @@ windowlayout=551
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -959,13 +953,13 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=364
- width0=134
+ propcolwidthref=379
+ width0=140
  sortdescend0=0
- width1=224
+ width1=233
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1188,7 +1182,7 @@ windowlayout=551
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=_mse_mainfo_mse_
+ stackedunder=
  parent=
  mdistate=0
  nx=0

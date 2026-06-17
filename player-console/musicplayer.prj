@@ -17,8 +17,8 @@ order14=0
 order15=0
 order16=0
 [projectoptions]
-projectdir=/home/roland/Documents/audio/pascalaudio-musicplayer/console
-projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/console/musicplayer.prj
+projectdir=/home/roland/Documents/audio/pascalaudio-musicplayer/player-console
+projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/player-console/musicplayer.prj
 options=135
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -115,7 +115,7 @@ options=135
  sortdescend6=0
  sortdescend7=0
  values8=6
-  -Xg -l -Mobjfpc -Sh -Fcutf8
+  -Mobjfpc -Sh -Fcutf8
   -gl -O-
   -B
   -O2 -XX -Xs -CX
@@ -275,7 +275,7 @@ targpref=-o
 befcommand=0
 aftcommand=0
 makeoptions=6
- -Xg -l -Mobjfpc -Sh -Fcutf8
+ -Mobjfpc -Sh -Fcutf8
  -gl -O-
  -B
  -O2 -XX -Xs -CX
@@ -292,9 +292,9 @@ makeoptpurpose=6
 befcommandon=0
 makeoptionson=6
  63
- 31
- 34
- 32
+ 1
+ 2
+ 2
  63
  63
 aftcommandon=0
@@ -604,7 +604,7 @@ editpos=1
  4,154
 bookmarks0=0
 sourcefiles=1
- /home/roland/Documents/audio/pascalaudio-musicplayer/console/musicplayer.pas
+ /home/roland/Documents/audio/pascalaudio-musicplayer/player-console/musicplayer.pas
 relpaths=1
  musicplayer.pas
 ismoduletexts=1
