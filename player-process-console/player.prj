@@ -601,7 +601,7 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=1
- 30,56
+ 23,90
 bookmarks0=0
 sourcefiles=1
  /home/roland/Documents/audio/pascalaudio-musicplayer/player-process-console/player.pas
@@ -652,7 +652,7 @@ windowlayout=531
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=mainfo.panel1
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -666,7 +666,7 @@ windowlayout=531
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -1115,7 +1115,7 @@ windowlayout=531
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
@@ -1128,9 +1128,9 @@ windowlayout=531
  cy=616
  rcx=0
  rcy=0
- wsize=0
- active=1
- visible=1
+ wsize=5
+ active=0
+ visible=0
  [mainfo.panel2]
  splitdir=2
  useroptions=302022123

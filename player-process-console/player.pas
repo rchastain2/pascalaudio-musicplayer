@@ -30,35 +30,49 @@ var
 
 procedure addfiletolist(const afilename: filenamety);
 begin
-  logln('[DEBUG] Add file ' + afilename);
+  logln('[DEBUG] Add file "' + afilename + '"');
   setlength(ffilelist, length(ffilelist) + 1);
   ffilelist[high(ffilelist)] := afilename;
 end;
 
 procedure playfile(const afilename: filenamety);
 var
+  lplayerdir, llastdirname: filenamety;
   lplayer, lcmd: msestring;
   lerror: integer;
 begin
-  logln('[DEBUG] Play ' + afilename);
+  logln('[DEBUG] Try to play "' + afilename + '"');
+  
   WriteLn(unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]));
+  
+  if checkfileext(afilename, ['flac']) then
+    lplayer := 'smartplay'
+  else
   if checkfileext(afilename, ['ogg']) then
     lplayer := 'playogg'
-  else if checkfileext(afilename, ['opus']) then
+  else
+  if checkfileext(afilename, ['opus']) then
     lplayer := 'playopus'
   else
   begin
-    WriteLn('[ERROR] No player available for this format');
+    WriteLn('No player available for this format');
     Exit;
   end;
-  lplayer := filedir(sys_getapplicationpath) + lplayer;
+  
+  lplayerdir := filedir(sys_getapplicationpath);
+  llastdirname := removelastdir(lplayerdir, lplayerdir);
+  lplayerdir := lplayerdir + 'examples/';
+  lplayer := lplayerdir + lplayer;
   lcmd := unicodeformat('%s ''%s''', [lplayer, afilename]);
-  logln('[DEBUG] lcmd "' + lcmd + '"');
+  logln('[DEBUG] Command "' + lcmd + '"');
+  
   lerror := execwaitmse(lcmd);
-  logln('[DEBUG] err ' + inttostrmse(lerror));
+  
+  logln('[DEBUG] Error ' + inttostrmse(lerror));
 end;
 
 const
+  cappinfo = 'PascalAudio Music Player ' + {$I version} + ' (' + {$I %DATE%} + ', ' + {$I %TIME%} + ', FPC ' + {$I %FPCVERSION%} + ', ' + {$I %FPCTARGETOS%} + ')';
   cextensions: msestringarty = (
     'flac',
     'ogg',
@@ -71,12 +85,12 @@ var
   lfilelist: filenamearty;
   lfilename: filenamety;
   i: integer;
-
-var
   lloop: boolean;
   
 begin
-  logln('PascalAudio Music Player ' + {$I version} + ' (' + {$I %DATE%} + ', ' + {$I %TIME%} + ', FPC ' + {$I %FPCVERSION%} + ', ' + {$I %FPCTARGETOS%} + ')', TRUE);
+  logln(cappinfo, TRUE);
+  
+  WriteLn(cappinfo);
   
   setlength(ffilelist, 0);
   ffileindex := 0;
@@ -86,27 +100,28 @@ begin
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
     begin
-      logln('[DEBUG] Detect directory ' + larguments[i]);
+      logln('[DEBUG] Directory exists "' + larguments[i] + '"');
 
       lfilelist := searchfiles('*', larguments[i]);
       for lfilename in lfilelist do
         if checkfileext(lfilename, cextensions) then
           addfiletolist(lfilename);
     end else
-    if fileexists(larguments[i]) then
-    begin
-      logln('[DEBUG] Detect file ' + larguments[i]);
-
-      if checkfileext(lfilename, cextensions) then
-        addfiletolist(larguments[i]);
-    end else
-      logln('[DEBUG] Ignore parameter ' + larguments[i]);
+      if fileexists(larguments[i]) then
+      begin
+        logln('[DEBUG] File exists "' + larguments[i] + '"');
+  
+        if checkfileext(lfilename, cextensions) then
+          addfiletolist(larguments[i]);
+      end else
+        logln('[WARNING] Invalid parameter "' + larguments[i] + '"');
 
   logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
 
   if length(ffilelist) = 0 then
   begin
     logln('[DEBUG] No music to play');
+    
     WriteLn('No music to play');
   end else
   begin
@@ -119,6 +134,7 @@ begin
     if ffileindex = high(ffilelist) then
     begin
       logln('[DEBUG] No more music to play');
+      
       WriteLn('No more music to play');
       lloop := FALSE;
     end else
@@ -127,6 +143,6 @@ begin
       inc(ffileindex);
     end;
     
-    sleep(1000);
+    sleep(500);
   end;
 end.
