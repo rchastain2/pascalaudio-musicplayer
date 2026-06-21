@@ -2,6 +2,7 @@
 examples/
 pascalaudio/
 pulseaudio/
+other-*/
 
 *.bak
 *.dbg
