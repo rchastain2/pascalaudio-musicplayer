@@ -7,7 +7,7 @@ Plays all the sound files found in a directory.
 Supported sound formats:
 
 - flac
-- mp4
+- m4a
 - ogg
 - wav
 

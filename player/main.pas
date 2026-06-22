@@ -107,7 +107,7 @@ procedure tmainfo.mainfo_oncreate(const sender: TObject);
 const
   cextensions: msestringarty = (
     'flac',
-    'mp4a',
+    'm4a',
     'ogg',
     'wav'
   );
