@@ -815,7 +815,7 @@ windowlayout=552
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -951,10 +951,10 @@ windowlayout=552
  active=1
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=364
- width0=134
+ propcolwidthref=379
+ width0=140
  sortdescend0=0
- width1=224
+ width1=233
  sortdescend1=0
  [symbolfo]
  splitdir=0

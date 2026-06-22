@@ -1,8 +1,8 @@
 # PascalAudio Music Player
 
-Simple Music Player based upon [PascalAudio](https://github.com/andrewd207/PascalAudio) and [MSEgui](https://github.com/mse-org/mseide-msegui).
+Simple command-line music player based upon [PascalAudio](https://github.com/andrewd207/PascalAudio) and [MSEgui](https://github.com/mse-org/mseide-msegui).
 
-![Screenshot](screenshot.png)
+Plays all the sound files found in a directory.
 
 Supported sound formats:
 
@@ -14,5 +14,9 @@ Supported sound formats:
 ## Usage
 
 ```
-./player MY_FOLDER
+./player DIRECTORY
 ```
+
+## Screenshot
+
+![Screenshot](screenshot.png)
