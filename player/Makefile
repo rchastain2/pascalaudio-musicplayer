@@ -24,6 +24,7 @@ ifdef DEBUG
 #PFLAGS += -Sa
 #PFLAGS += -ghl
 #PFLAGS += -vwhilq
+PFLAGS += -gl -O-
 else
 PFLAGS += -dRELEASE
 #PFLAGS += -vm6058
@@ -34,7 +35,7 @@ PFLAGS += -dRELEASE
 PFLAGS += -XX -Xs -CX
 endif
 
-PROGRAM := musicplayer
+PROGRAM := player
 SOURCES := $(filter-out $(PROGRAM).pas,$(wildcard *.pas))
 
 $(PROGRAM): $(PROGRAM).pas $(SOURCES)

@@ -18,7 +18,7 @@ order15=0
 order16=0
 [projectoptions]
 projectdir=/home/roland/Documents/audio/pascalaudio-musicplayer/player
-projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/player/musicplayer.prj
+projectfilename=/home/roland/Documents/audio/pascalaudio-musicplayer/player/player.prj
 options=135
  [projectoptionsfo.toolshortcuts]
  dropdowncolwidths=3
@@ -636,31 +636,26 @@ hintheight=0
 finddtext=
 findhistory=0
 findoptions=1
-editpos=5
+editpos=4
  0,-1073741823
- 2,54
- 0,-1073741823
+ 10,253
  0,-1073741823
  0,-1073741823
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
 bookmarks3=0
-bookmarks4=0
-sourcefiles=5
- /D:/pascal/msegui/musicplayer-project/musicplayer.pas
+sourcefiles=4
+ /home/roland/Documents/audio/pascalaudio-musicplayer/player/player.pas
  /home/roland/Documents/audio/pascalaudio-musicplayer/player/main.pas
  /home/roland/Documents/audio/pascalaudio-musicplayer/log.pas
  /D:/pascal/msegui/musicplayer-project/version.pas
- /home/roland/Documents/audio/pascalaudio-musicplayer/musicplayer.pas
-relpaths=5
- musicplayer.pas
+relpaths=4
+ player.pas
  main.pas
  log.pas
  version.pas
- musicplayer.pas
-ismoduletexts=5
- 0
+ismoduletexts=4
  0
  0
  0
@@ -674,17 +669,16 @@ visiblemodules=1
 nomenumodules=1
  0
 [sourcefo.tabwidget]
-order=5
+order=4
  0
  3
  2
  1
- 4
 tabsize=114
 firsttab=0
 index=3
 [layout]
-windowlayout=551
+windowlayout=552
  [mainfo.openform]
  filenames=0
  filecolwidth=0
@@ -708,7 +702,8 @@ windowlayout=551
  y=0
  cx=0
  cy=0
- filehistory=2
+ filehistory=3
+  /home/roland/Documents/audio/pascalaudio-musicplayer/player/player.pas
   /D:/pascal/msegui/musicplayer-project/version.pas
   /D:/pascal/msegui/musicplayer-project/log.pas
  filefilterindex=0
@@ -719,7 +714,7 @@ windowlayout=551
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=_mse_mainfo_mse_
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -733,7 +728,7 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -820,7 +815,7 @@ windowlayout=551
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -939,7 +934,7 @@ windowlayout=551
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=componentpalettefo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -953,7 +948,7 @@ windowlayout=551
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [objectinspectorfo.grid]
  propcolwidthref=379
@@ -1105,7 +1100,7 @@ windowlayout=551
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=mainfo.panel1
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1122,7 +1117,7 @@ windowlayout=551
  active=0
  visible=1
  [componentpalettefo.componentpages]
- activetab=3
+ activetab=0
  [debuggerfo]
  splitdir=0
  useroptions=268460139
@@ -1182,7 +1177,7 @@ windowlayout=551
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0

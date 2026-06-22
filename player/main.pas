@@ -45,12 +45,12 @@ uses
   msescrollbar,
   msedispwidgets,
   mserichstring,
-  msesys, {getcommandlinearguments}
-  msefileutils, {searchfiles}
-  mseformatstr, {inttostrmse}
-  msekeyboard, {KEY_*}
-  msestrings, {stringtoutf8}
-  msearrayutils, {sortarray}
+  msesys,
+  msefileutils,
+  mseformatstr,
+  msekeyboard,
+  msestrings,
+  msearrayutils,
   
   pa_base,
   pa_stream,
@@ -70,11 +70,17 @@ type
     tm_timer: ttimer;
     pb_progress: tprogressbar;
     lb_appname: tlabel;
+    sd_filename: tstringdisp;
+    bt_pause: tbutton;
+    bt_stop: tbutton;
     procedure mainfo_oncreate(const sender: TObject);
     procedure bt_quit_onexecute(const sender: TObject);
     procedure mainfo_onkeyup(const sender: twidget; var ainfo: keyeventinfoty);
     procedure tm_timer_ontimer(const sender: TObject);
     procedure item_about_onexecute(const sender: TObject);
+    procedure mainfo_onterminated(const sender: TObject);
+    procedure bt_pause_onexecute(const sender: TObject);
+    procedure bt_stop_onexecute(const sender: TObject);
   private
     fsource: TPAStreamSource;
     fdest: TPAAudioDestination;
@@ -96,10 +102,11 @@ procedure tmainfo.mainfo_oncreate(const sender: TObject);
 const
   cextensions: msestringarty = (
     'flac',
-    'ogg',
+    'mp4a',
+    'ogg'{,
     'opus',
-    'wav'
-  );
+    'wav'}
+    );
 var
   larguments: msestringarty;
   lfilelist: filenamearty;
@@ -113,20 +120,21 @@ begin
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
     begin
-      logln('[DEBUG] Detect directory ' + larguments[i]);
+      logln('[DEBUG] Directory exists ' + larguments[i]);
 
       lfilelist := searchfiles('*', larguments[i]);
       for lfilename in lfilelist do
         if checkfileext(lfilename, cextensions) then
           addfiletolist(lfilename);
-    end else
-    if fileexists(larguments[i]) then
+    end
+    else if fileexists(larguments[i]) then
     begin
-      logln('[DEBUG] Detect file ' + larguments[i]);
+      logln('[DEBUG] File exists ' + larguments[i]);
 
       if checkfileext(lfilename, cextensions) then
         addfiletolist(larguments[i]);
-    end else
+    end
+    else
       logln('[DEBUG] Ignore parameter ' + larguments[i]);
 
   logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
@@ -134,14 +142,16 @@ begin
   if length(ffilelist) = 0 then
   begin
     logln('[DEBUG] No music to play');
-   {sd_info.value := 'No music to play';}
     pb_progress.frame.caption := 'No music to play';
-  end else
+  end
+  else
   begin
     sortarray(ffilelist);
     playfile(ffilelist[0]);
     tm_timer.enabled := TRUE;
   end;
+
+  pb_progress.format := '';
 end;
 
 procedure tmainfo.bt_quit_onexecute(const sender: TObject);
@@ -171,8 +181,8 @@ var
   lfilename: string;
 begin
   logln('[DEBUG] Play ' + afilename);
- {sd_info.value := unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]);}
   pb_progress.frame.caption := unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]);
+  sd_filename.value := filename(afilename);
   if assigned(fsource) then
     fsource.Free;
   lfilename := stringtoutf8(afilename);
@@ -193,12 +203,11 @@ begin
       if ffileindex = high(ffilelist) then
       begin
         logln('[DEBUG] No more music to play');
-       {sd_info.value := 'No more music to play';}
         pb_progress.frame.caption := 'No more music to play';
+        sd_filename.value := '';
         tm_timer.enabled := FALSE;
         exit;
-      end
-      else
+      end else
       begin
         inc(ffileindex);
         playfile(ffilelist[ffileindex]);
@@ -220,6 +229,45 @@ end;
 procedure tmainfo.item_about_onexecute(const sender: TObject);
 begin
   showmessage('PascalAudio Music Player ' + {$I version}, 'About Music Player');
+end;
+
+procedure tmainfo.mainfo_onterminated(const sender: TObject);
+begin
+  logln('[DEBUG] mainfo_onterminated');
+  if assigned(fsource) then
+    freeandnil(fsource);
+  if assigned(fdest) then
+    freeandnil(fdest);
+end;
+
+procedure tmainfo.bt_pause_onexecute(const sender: TObject);
+var
+  lplayable: IPAPlayable;
+begin
+  if assigned(fsource) then
+    if fsource.GetInterface('IPAPlayable', lplayable) then
+    begin
+      if bt_pause.caption = 'Pause' then
+      begin
+        lplayable.Pause;
+        bt_pause.caption := 'Resume';
+      end else
+      begin
+        lplayable.Play;
+        bt_pause.caption := 'Pause';
+      end;
+    end;
+end;
+
+procedure tmainfo.bt_stop_onexecute(const sender: TObject);
+var
+  lplayable: IPAPlayable;
+begin
+  if assigned(fsource) then
+    if fsource.GetInterface('IPAPlayable', lplayable) then
+    begin
+      lplayable.Stop;
+    end;
 end;
 
 end.

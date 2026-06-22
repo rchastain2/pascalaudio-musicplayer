@@ -1,5 +1,5 @@
 
-program musicplayer;
+program player;
 
 {$IFDEF FPC}{$MODE objfpc}{$H+}{$ENDIF}
 {$IFDEF FPC}
