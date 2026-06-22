@@ -638,7 +638,7 @@ findhistory=0
 findoptions=1
 editpos=4
  0,-1073741823
- 10,253
+ 2,132
  0,-1073741823
  0,-1073741823
 bookmarks0=0
@@ -1225,7 +1225,7 @@ windowlayout=552
  x=505
  y=209
  cx=442
- cy=240
+ cy=224
  rcx=0
  rcy=0
  wsize=0

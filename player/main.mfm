@@ -2,17 +2,17 @@ object mainfo: tmainfo
   bounds_x = 505
   bounds_y = 209
   bounds_cx = 432
-  bounds_cy = 240
+  bounds_cy = 224
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     17
     432
-    223
+    207
   )
   mainmenu = mm_menu
-  caption = 'PascalAudio Music Player'
+  caption = 'PAMP'
   windowopacity = -Inf
   oncreate = mainfo_oncreate
   onterminated = mainfo_onterminated
@@ -142,11 +142,11 @@ object mainfo: tmainfo
         state = [as_localcaption, as_localonexecute]
       end>
     left = 16
-    top = 152
+    top = 144
   end
   object tm_timer: ttimer
     ontimer = tm_timer_ontimer
     left = 16
-    top = 184
+    top = 176
   end
 end

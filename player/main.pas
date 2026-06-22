@@ -99,43 +99,59 @@ uses
   main_mfm;
 
 procedure tmainfo.mainfo_oncreate(const sender: TObject);
+{
 const
   cextensions: msestringarty = (
     'flac',
     'mp4a',
-    'ogg'{,
-    'opus',
-    'wav'}
-    );
+    'ogg',
+    'wav'
+  );
+}
 var
-  larguments: msestringarty;
+  litems, lextensions1: TStrings;
+  lextensions, larguments: msestringarty;
   lfilelist: filenamearty;
   lfilename: filenamety;
   i: integer;
 begin
   setlength(ffilelist, 0);
   ffileindex := 0;
-
+  
+  lextensions1 := TStringList.Create;
+  litems := PARegisteredGetList(partDecoder, lextensions1);
+  if assigned(litems) then
+  begin
+    setlength(lextensions, litems.Count);
+    for i := 0 to litems.Count - 1 do
+      lextensions[i] := utf8tostring(copy(lextensions1[i], 2));
+    litems.Free;
+  end;
+  lextensions1.Free;
+  
+  sortarray(lextensions);
+  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions));
+  
   larguments := getcommandlinearguments;
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
     begin
-      logln('[DEBUG] Directory exists ' + larguments[i]);
+      logln('[DEBUG] Directory exists "' + larguments[i] + '"');
 
       lfilelist := searchfiles('*', larguments[i]);
       for lfilename in lfilelist do
-        if checkfileext(lfilename, cextensions) then
+        if checkfileext(lfilename, {cextensions}lextensions) then
           addfiletolist(lfilename);
     end
     else if fileexists(larguments[i]) then
     begin
-      logln('[DEBUG] File exists ' + larguments[i]);
+      logln('[DEBUG] File exists "' + larguments[i] + '"');
 
-      if checkfileext(lfilename, cextensions) then
+      if checkfileext(lfilename, {cextensions}lextensions) then
         addfiletolist(larguments[i]);
     end
     else
-      logln('[DEBUG] Ignore parameter ' + larguments[i]);
+      logln('[DEBUG] Ignore parameter "' + larguments[i] + '"');
 
   logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
 
@@ -143,8 +159,7 @@ begin
   begin
     logln('[DEBUG] No music to play');
     pb_progress.frame.caption := 'No music to play';
-  end
-  else
+  end else
   begin
     sortarray(ffilelist);
     playfile(ffilelist[0]);
@@ -171,7 +186,7 @@ end;
 
 procedure tmainfo.addfiletolist(const afilename: filenamety);
 begin
-  logln('[DEBUG] Add file ' + afilename);
+  logln('[DEBUG] Add file "' + afilename + '"');
   setlength(ffilelist, length(ffilelist) + 1);
   ffilelist[high(ffilelist)] := afilename;
 end;
@@ -180,7 +195,7 @@ procedure tmainfo.playfile(const afilename: filenamety);
 var
   lfilename: string;
 begin
-  logln('[DEBUG] Play ' + afilename);
+  logln('[DEBUG] Play "' + afilename + '"');
   pb_progress.frame.caption := unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
   if assigned(fsource) then
@@ -218,7 +233,6 @@ begin
     begin
       lpos := lplayable.GetPosition;
       lposmax := lplayable.GetMaxPosition;
-
       if lposmax = 0 then
         pb_progress.value := 0
       else
