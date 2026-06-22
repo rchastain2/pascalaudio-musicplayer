@@ -72,7 +72,10 @@ type
     lb_appname: tlabel;
     sd_filename: tstringdisp;
     bt_pause: tbutton;
+    bt_next: tbutton;
+    bt_previous: tbutton;
     bt_stop: tbutton;
+    bt_play: tbutton;
     procedure mainfo_oncreate(const sender: TObject);
     procedure bt_quit_onexecute(const sender: TObject);
     procedure mainfo_onkeyup(const sender: twidget; var ainfo: keyeventinfoty);
@@ -80,7 +83,8 @@ type
     procedure item_about_onexecute(const sender: TObject);
     procedure mainfo_onterminated(const sender: TObject);
     procedure bt_pause_onexecute(const sender: TObject);
-    procedure bt_stop_onexecute(const sender: TObject);
+    procedure bt_next_onexecute(const sender: TObject);
+   procedure bt_play_onexecute(const sender: TObject);
   private
     fsource: TPAStreamSource;
     fdest: TPAAudioDestination;
@@ -109,29 +113,31 @@ const
   );
 }
 var
-  litems, lextensions1: TStrings;
-  lextensions, larguments: msestringarty;
+  litems, lextensions: TStrings;
+  lextensions2, larguments: msestringarty;
   lfilelist: filenamearty;
   lfilename: filenamety;
   i: integer;
 begin
   setlength(ffilelist, 0);
-  ffileindex := 0;
-  
-  lextensions1 := TStringList.Create;
-  litems := PARegisteredGetList(partDecoder, lextensions1);
+  ffileindex := -1;
+  fsource := nil;
+  fdest := nil;
+
+  lextensions := TStringList.Create;
+  litems := PARegisteredGetList(partDecoder, lextensions);
   if assigned(litems) then
   begin
-    setlength(lextensions, litems.Count);
+    setlength(lextensions2, litems.Count);
     for i := 0 to litems.Count - 1 do
-      lextensions[i] := utf8tostring(copy(lextensions1[i], 2));
+      lextensions2[i] := utf8tostring(copy(lextensions[i], 2));
     litems.Free;
   end;
-  lextensions1.Free;
-  
-  sortarray(lextensions);
-  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions));
-  
+  lextensions.Free;
+
+  sortarray(lextensions2);
+  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions2));
+
   larguments := getcommandlinearguments;
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
@@ -140,17 +146,15 @@ begin
 
       lfilelist := searchfiles('*', larguments[i]);
       for lfilename in lfilelist do
-        if checkfileext(lfilename, {cextensions}lextensions) then
+        if checkfileext(lfilename, {cextensions}lextensions2) then
           addfiletolist(lfilename);
-    end
-    else if fileexists(larguments[i]) then
+    end else if fileexists(larguments[i]) then
     begin
       logln('[DEBUG] File exists "' + larguments[i] + '"');
 
-      if checkfileext(lfilename, {cextensions}lextensions) then
+      if checkfileext(lfilename, {cextensions}lextensions2) then
         addfiletolist(larguments[i]);
-    end
-    else
+    end else
       logln('[DEBUG] Ignore parameter "' + larguments[i] + '"');
 
   logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
@@ -162,7 +166,6 @@ begin
   end else
   begin
     sortarray(ffilelist);
-    playfile(ffilelist[0]);
     tm_timer.enabled := TRUE;
   end;
 
@@ -199,7 +202,8 @@ begin
   pb_progress.frame.caption := unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
   if assigned(fsource) then
-    fsource.Free;
+    {fsource.Free;}
+    freeandnil(fsource);
   lfilename := stringtoutf8(afilename);
   fsource := PARegisteredGetDecoderClass(lfilename, FALSE).Create(TFileStream.Create(lfilename, fmOpenRead));
   if not assigned(fdest) then
@@ -214,19 +218,30 @@ var
   lpos, lposmax: Double;
 begin
   if assigned(fdest) then
-    if not fdest.Working then
-      if ffileindex = high(ffilelist) then
-      begin
-        logln('[DEBUG] No more music to play');
-        pb_progress.frame.caption := 'No more music to play';
-        sd_filename.value := '';
-        tm_timer.enabled := FALSE;
-        exit;
-      end else
-      begin
-        inc(ffileindex);
-        playfile(ffilelist[ffileindex]);
-      end;
+  begin
+    Write(formatdatetime('hh:nn:ss:zzz', now), ' fdest is assigned. ');
+    if fdest.Working then
+      WriteLn('fdest is working.')
+    else
+      WriteLn('fdest is NOT working.')
+  end
+  else
+    WriteLn(formatdatetime('hh:nn:ss:zzz', now), ' fdest is NOT assigned.');
+
+  if (not assigned(fdest))
+    or (not fdest.Working) then
+    if ffileindex = high(ffilelist) then
+    begin
+      logln('[DEBUG] No more music to play');
+      pb_progress.frame.caption := 'No more music to play';
+      sd_filename.value := '';
+      tm_timer.enabled := FALSE;
+      exit;
+    end else
+    begin
+      inc(ffileindex);
+      playfile(ffilelist[ffileindex]);
+    end;
 
   if assigned(fsource) then
     if fsource.GetInterface('IPAPlayable', lplayable) then
@@ -263,24 +278,46 @@ begin
     begin
       if bt_pause.caption = 'Pause' then
       begin
+        tm_timer.enabled := FALSE;
         lplayable.Pause;
         bt_pause.caption := 'Resume';
       end else
       begin
         lplayable.Play;
+        tm_timer.enabled := TRUE;
         bt_pause.caption := 'Pause';
       end;
     end;
 end;
 
-procedure tmainfo.bt_stop_onexecute(const sender: TObject);
+procedure tmainfo.bt_next_onexecute(const sender: TObject);
 var
   lplayable: IPAPlayable;
 begin
   if assigned(fsource) then
     if fsource.GetInterface('IPAPlayable', lplayable) then
     begin
-      lplayable.Stop;
+      if sender is tbutton then
+      begin
+        logln('[DEBUG] tbutton(sender).name "' + utf8tostring(tbutton(sender).name) + '"');
+        if tbutton(sender).name = 'bt_previous' then
+          dec(ffileindex);
+        if tbutton(sender).name = 'bt_stop' then
+          tm_timer.enabled := FALSE;
+        lplayable.Stop;
+      end;
+    end;
+end;
+
+procedure tmainfo.bt_play_onexecute(const sender: TObject);
+var
+  lplayable: IPAPlayable;
+begin
+  if assigned(fsource) then
+    if fsource.GetInterface('IPAPlayable', lplayable) then
+    begin
+      lplayable.Play;
+      tm_timer.enabled := TRUE;
     end;
 end;
 

@@ -1,27 +1,27 @@
 object mainfo: tmainfo
   bounds_x = 505
   bounds_y = 209
-  bounds_cx = 432
+  bounds_cx = 504
   bounds_cy = 224
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     17
-    432
+    504
     207
   )
   mainmenu = mm_menu
-  caption = 'PAMP'
+  caption = 'PA Music Player'
   windowopacity = -Inf
   oncreate = mainfo_oncreate
   onterminated = mainfo_onterminated
   onkeyup = mainfo_onkeyup
   moduleclassname = 'tmainform'
   object bt_quit: tbutton
-    bounds_x = 336
+    bounds_x = 416
     bounds_y = 160
-    bounds_cx = 80
+    bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
     state = [as_localcaption, as_localonexecute]
@@ -41,7 +41,7 @@ object mainfo: tmainfo
     taborder = 1
     bounds_x = 16
     bounds_y = 56
-    bounds_cx = 400
+    bounds_cx = 472
     bounds_cy = 38
     anchors = [an_left, an_top, an_right]
     bar_face.fade_pos.count = 1
@@ -64,7 +64,7 @@ object mainfo: tmainfo
     taborder = 2
     bounds_x = 16
     bounds_y = 16
-    bounds_cx = 400
+    bounds_cx = 472
     bounds_cy = 24
     anchors = [an_left, an_top, an_right]
     caption = 'PascalAudio Music Player'
@@ -88,7 +88,7 @@ object mainfo: tmainfo
     taborder = 3
     bounds_x = 16
     bounds_y = 102
-    bounds_cx = 400
+    bounds_cx = 472
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
     textflags = [tf_ycentered, tf_ellipseright]
@@ -96,25 +96,55 @@ object mainfo: tmainfo
   end
   object bt_pause: tbutton
     taborder = 4
-    bounds_x = 240
+    bounds_x = 336
     bounds_y = 160
-    bounds_cx = 80
+    bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
     state = [as_localdisabled, as_localcaption, as_localonexecute]
     caption = 'Pause'
     onexecute = bt_pause_onexecute
   end
-  object bt_stop: tbutton
+  object bt_next: tbutton
     taborder = 5
-    bounds_x = 144
+    bounds_x = 256
     bounds_y = 160
-    bounds_cx = 80
+    bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
     state = [as_localcaption, as_localonexecute]
+    caption = 'Next'
+    onexecute = bt_next_onexecute
+  end
+  object bt_previous: tbutton
+    taborder = 6
+    bounds_x = 176
+    bounds_y = 160
+    bounds_cx = 72
+    bounds_cy = 24
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Previous'
+    onexecute = bt_next_onexecute
+  end
+  object bt_stop: tbutton
+    taborder = 7
+    bounds_x = 96
+    bounds_y = 160
+    bounds_cx = 72
+    bounds_cy = 24
+    state = [as_localcaption, as_localonexecute]
     caption = 'Stop'
-    onexecute = bt_stop_onexecute
+    onexecute = bt_next_onexecute
+  end
+  object bt_play: tbutton
+    taborder = 8
+    bounds_x = 16
+    bounds_y = 160
+    bounds_cx = 72
+    bounds_cy = 24
+    state = [as_localdisabled, as_localcaption, as_localonexecute]
+    caption = 'Play'
+    onexecute = bt_play_onexecute
   end
   object mm_menu: tmainmenu
     menu.submenu.count = 2
@@ -141,12 +171,12 @@ object mainfo: tmainfo
         caption = 'Help'
         state = [as_localcaption, as_localonexecute]
       end>
-    left = 16
-    top = 144
+    left = 400
+    top = 8
   end
   object tm_timer: ttimer
     ontimer = tm_timer_ontimer
-    left = 16
-    top = 176
+    left = 400
+    top = 40
   end
 end
