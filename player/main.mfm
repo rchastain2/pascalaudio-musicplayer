@@ -57,15 +57,18 @@ object mainfo: tmainfo
     bounds_x = 16
     bounds_y = 16
     bounds_cx = 472
-    bounds_cy = 24
+    bounds_cy = 33
     anchors = [an_left, an_top, an_right]
     caption = 'PascalAudio Music Player'
     font.colorbackground = -2147483645
-    font.height = 20
-    font.name = 'stf_default'
-    font.localprops = [flp_colorbackground, flp_height]
+    font.shadow_color = -1610612715
+    font.shadow_shiftx = 2
+    font.shadow_shifty = 2
+    font.height = 28
+    font.name = 'stf_fancy'
+    font.localprops = [flp_colorbackground, flp_shadow_color, flp_shadow_shiftx, flp_shadow_shifty, flp_grayed_color, flp_grayed_colorshadow, flp_height]
     textflags = [tf_xcentered, tf_ycentered]
-    reffontheight = 24
+    reffontheight = 33
   end
   object sd_filename: tstringdisp
     frame.caption = 'File name'
