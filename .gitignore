@@ -3,6 +3,7 @@ pascalaudio/
 pulseaudio/
 
 *.bak
+*.bak?
 *.dbg
 *.log
 *.o
