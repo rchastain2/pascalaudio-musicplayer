@@ -2,7 +2,7 @@
 
 Simple command-line music player based upon [PascalAudio](https://github.com/andrewd207/PascalAudio) and [MSEgui](https://github.com/mse-org/mseide-msegui).
 
-Plays all the sound files found in a directory.
+Plays all sound files of a directory.
 
 Supported sound formats:
 
@@ -16,6 +16,15 @@ Supported sound formats:
 ```
 ./player DIRECTORY
 ```
+
+Keyboard shortcuts:
+
+| Key | Action |
+| --- | --- |
+| Escape, Q | Quit |
+| P | Pause/resume |
+| Right, N | Play next file |
+| Left | Play previous file |
 
 ## Screenshot
 

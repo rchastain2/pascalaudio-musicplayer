@@ -84,7 +84,7 @@ type
     procedure mainfo_onterminated(const sender: TObject);
     procedure bt_pause_onexecute(const sender: TObject);
     procedure bt_next_onexecute(const sender: TObject);
-    procedure bt_play_onexecute(const sender: TObject);
+   procedure bt_play_onexecute(const sender: TObject);
   private
     fsource: TPAStreamSource;
     fdest: TPAAudioDestination;
@@ -182,14 +182,8 @@ begin
   logln(unicodeformat('[DEBUG] mainfo_onkeyup(%d)', [ainfo.key]));
 
   case ainfo.key of
-    KEY_ESCAPE, KEY_Q:
+    KEY_ESCAPE:
       application.terminated := TRUE;
-    KEY_P:
-      bt_pause_onexecute(nil);
-    KEY_RIGHT, KEY_N:
-      bt_next_onexecute(nil);
-    KEY_LEFT:
-      bt_next_onexecute(bt_previous);
   end;
 end;
 
@@ -205,18 +199,16 @@ var
   lfilename: string;
 begin
   logln('[DEBUG] Play "' + afilename + '"');
-  pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
+  pb_progress.frame.caption := unicodeformat('Track %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
-  
   if assigned(fsource) then
+    {fsource.Free;}
     freeandnil(fsource);
   lfilename := stringtoutf8(afilename);
   fsource := PARegisteredGetDecoderClass(lfilename, FALSE).Create(TFileStream.Create(lfilename, fmOpenRead));
-  
   if not assigned(fdest) then
     fdest := PARegisteredGetDeviceOut('').Create;
   fdest.DataSource := fsource;
-  
   fsource.StartData;
 end;
 
@@ -232,11 +224,12 @@ begin
       WriteLn('fdest is working.')
     else
       WriteLn('fdest is NOT working.')
-  end else
+  end
+  else
     WriteLn(formatdatetime('hh:nn:ss:zzz', now), ' fdest is NOT assigned.');
 
-  if not assigned(fdest)
-  or not fdest.Working then
+  if (not assigned(fdest))
+    or (not fdest.Working) then
     if ffileindex = high(ffilelist) then
     begin
       logln('[DEBUG] No more music to play');
@@ -311,8 +304,8 @@ begin
           dec(ffileindex);
         if tbutton(sender).name = 'bt_stop' then
           tm_timer.enabled := FALSE;
+        lplayable.Stop;
       end;
-      lplayable.Stop;
     end;
 end;
 

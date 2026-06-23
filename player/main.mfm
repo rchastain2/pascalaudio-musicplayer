@@ -29,20 +29,12 @@ object mainfo: tmainfo
     onexecute = bt_quit_onexecute
   end
   object pb_progress: tprogressbar
-    frame.caption = 'Current track'
     frame.localprops = [frl_colorframe, frl_colorframeactive, frl_colorclient]
     frame.localprops1 = []
-    frame.outerframe = (
-      0
-      18
-      0
-      0
-    )
     taborder = 1
     bounds_x = 16
-    bounds_y = 56
+    bounds_y = 74
     bounds_cx = 472
-    bounds_cy = 38
     anchors = [an_left, an_top, an_right]
     bar_face.fade_pos.count = 1
     bar_face.fade_pos.items = (

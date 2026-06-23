@@ -638,7 +638,7 @@ findhistory=0
 findoptions=1
 editpos=4
  0,-1073741823
- 31,319
+ 2,213
  0,-1073741823
  0,-1073741823
 bookmarks0=0
@@ -815,7 +815,7 @@ windowlayout=552
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=mainfo
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -934,7 +934,7 @@ windowlayout=552
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -948,7 +948,7 @@ windowlayout=552
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [objectinspectorfo.grid]
  propcolwidthref=379
@@ -1029,8 +1029,8 @@ windowlayout=552
  ncx=0
  ncy=0
  x=0
- y=311
- cx=1188
+ y=439
+ cx=1265
  cy=95
  rcx=0
  rcy=0
@@ -1100,7 +1100,7 @@ windowlayout=552
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=mainfo.panel1
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1146,8 +1146,8 @@ windowlayout=552
  ncy=0
  x=0
  y=0
- cx=1188
- cy=308
+ cx=1265
+ cy=436
  rcx=0
  rcy=0
  [actionsmo.watchesonact]
@@ -1177,7 +1177,7 @@ windowlayout=552
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=_mse_mainfo_mse_
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1185,13 +1185,13 @@ windowlayout=552
  ncx=0
  ncy=0
  x=158
- y=380
- cx=1198
- cy=406
+ y=252
+ cx=1275
+ cy=534
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [mainfo.panel2]
  splitdir=2
@@ -1215,7 +1215,7 @@ windowlayout=552
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=objectinspectorfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=3
  nx=0
