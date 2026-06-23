@@ -225,6 +225,7 @@ var
   lplayable: IPAPlayable;
   lpos, lposmax: Double;
 begin
+{$IFDEF DEBUG}
   if assigned(fdest) then
   begin
     Write(formatdatetime('hh:nn:ss:zzz', now), ' fdest is assigned. ');
@@ -234,7 +235,7 @@ begin
       WriteLn('fdest is NOT working.')
   end else
     WriteLn(formatdatetime('hh:nn:ss:zzz', now), ' fdest is NOT assigned.');
-
+{$ENDIF}
   if not assigned(fdest)
   or not fdest.Working then
     if ffileindex = high(ffilelist) then

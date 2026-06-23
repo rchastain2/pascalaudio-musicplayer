@@ -20,7 +20,7 @@ PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
 
 ifdef DEBUG
-#PFLAGS += -dDEBUG
+PFLAGS += -dDEBUG
 #PFLAGS += -Sa
 #PFLAGS += -ghl
 #PFLAGS += -vwhilq
@@ -42,10 +42,10 @@ $(PROGRAM): $(PROGRAM).pas $(SOURCES)
 	@$(PC) $(PFLAGS) $<
 
 clean:
-	rm -fv $(TARGETS) units/*.o units/*.ppu
+	rm -fv $(TARGETS) units/*.o units/*.ppu *.bak *.bak? *.sta
 
 distclean: clean
-	@rm -fv *.bak *.bak? *.sta $(PROGRAM) $(PROGRAM).dbg $(PROGRAM).exe
+	@rm -fv $(PROGRAM) $(PROGRAM).dbg $(PROGRAM).exe
 
 clone:
 	git clone --single-branch --depth 1 https://github.com/andrewd207/PascalAudio.git pascalaudio

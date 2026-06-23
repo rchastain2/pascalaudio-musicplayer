@@ -12,7 +12,7 @@ object mainfo: tmainfo
     207
   )
   mainmenu = mm_menu
-  caption = 'PA Music Player'
+  caption = 'Music Player'
   windowopacity = -Inf
   oncreate = mainfo_oncreate
   onterminated = mainfo_onterminated
