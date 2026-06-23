@@ -637,7 +637,7 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=4
- 61,20
+ 0,20
  0,190
  0,-1073741823
  0,-1073741823
@@ -714,7 +714,7 @@ windowlayout=552
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=componentpalettefo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -934,7 +934,7 @@ windowlayout=552
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -948,7 +948,7 @@ windowlayout=552
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [objectinspectorfo.grid]
  propcolwidthref=379
@@ -1177,7 +1177,7 @@ windowlayout=552
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=_mse_mainfo_mse_
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1191,7 +1191,7 @@ windowlayout=552
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [mainfo.panel2]
  splitdir=2

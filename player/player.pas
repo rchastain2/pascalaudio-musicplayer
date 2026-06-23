@@ -16,10 +16,18 @@ uses
   main,
   log;
 
+const
+  CFont = 'Oxanium';
+
+var
+  LSuccess: boolean;
+  
 begin
   logln('PascalAudio Music Player ' + {$I version} + ' (' + {$I %DATE%} + ', ' + {$I %TIME%} + ', FPC ' + {$I %FPCVERSION%} + ', ' + {$I %FPCTARGETOS%} + ')', TRUE);
-  registerfontalias('stf_fancy', 'Oxanium', fam_overwrite, 26);
-  registerfontalias('stf_default', 'Oxanium', fam_overwrite, 14);
+  LSuccess := registerfontalias('stf_fancy', CFont, fam_overwrite, 26);
+  if not LSuccess then logln('[WARNING] Failed to register font alias');
+  LSuccess := registerfontalias('stf_default', CFont, fam_overwrite, 14);
+  if not LSuccess then logln('[WARNING] Failed to register font alias');
   application.createform(tmainfo, mainfo);
   application.run;
 end.
