@@ -2,7 +2,7 @@
 
 Simple command-line music player based upon [PascalAudio](https://github.com/andrewd207/PascalAudio) and [MSEgui](https://github.com/mse-org/mseide-msegui).
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot/screenshot.png)
 
 Plays all sound files of a directory.
 
@@ -30,12 +30,11 @@ Keyboard shortcuts:
 
 ## Build
 
-Download *PascalAudio*.
-
 ```
+git clone https://github.com/rchastain2/pascalaudio-musicplayer.git
 cd pascalaudio-musicplayer
 git clone https://github.com/andrewd207/PascalAudio.git pascalaudio
 git clone https://github.com/andrewd207/fpc-pulseaudio.git pulseaudio
+git clone https://github.com/mse-org/mseide-msegui.git
+make
 ```
-
-Open *player/player.prj* in *MSEide* and click on `Project-Make`.
