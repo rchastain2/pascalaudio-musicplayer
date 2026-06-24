@@ -13,9 +13,9 @@ PC := fpc
 PFLAGS := -Mobjfpc -Sh
 PFLAGS += -Fu$(MSEGUI)/lib/common/*
 PFLAGS += -Fu$(MSEGUI)/lib/common/kernel/$(OS)
-PFLAGS += -Fu../pascalaudio/pascalaudioio
-PFLAGS += -Fu../pascalaudio/pascalaudiosuite
-PFLAGS += -Fu../pulseaudio
+PFLAGS += -Fupascalaudio/pascalaudioio
+PFLAGS += -Fupascalaudio/pascalaudiosuite
+PFLAGS += -Fupulseaudio
 PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
 

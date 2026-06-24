@@ -8,3 +8,5 @@ pulseaudio/
 *.log
 *.o
 *.ppu
+
+player
