@@ -130,7 +130,7 @@ begin
   begin
     setlength(lextensions2, litems.Count);
     for i := 0 to litems.Count - 1 do
-      lextensions2[i] := utf8tostring(copy(lextensions[i], 2));
+      lextensions2[i] := {utf8tostring}msestring(copy(lextensions[i], 2));
     litems.Free;
   end;
   lextensions.Free;
@@ -307,7 +307,7 @@ begin
     begin
       if sender is tbutton then
       begin
-        logln('[DEBUG] tbutton(sender).name "' + utf8tostring(tbutton(sender).name) + '"');
+        logln('[DEBUG] tbutton(sender).name "' + {utf8tostring}msestring(tbutton(sender).name) + '"');
         if tbutton(sender).name = 'bt_previous' then
           dec(ffileindex);
         if tbutton(sender).name = 'bt_stop' then

@@ -20,11 +20,12 @@ PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
 
 ifdef DEBUG
-PFLAGS += -dDEBUG
+#PFLAGS += -dDEBUG
 #PFLAGS += -Sa
 #PFLAGS += -ghl
 #PFLAGS += -vwhilq
-PFLAGS += -gl -O-
+#PFLAGS += -gl -O-
+PFLAGS += -gl
 else
 PFLAGS += -dRELEASE
 #PFLAGS += -vm6058
