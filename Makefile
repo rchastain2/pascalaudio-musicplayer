@@ -51,3 +51,4 @@ distclean: clean
 clone:
 	git clone --single-branch --depth 1 https://github.com/andrewd207/PascalAudio.git pascalaudio
 	git clone --single-branch --depth 1 https://github.com/andrewd207/fpc-pulseaudio.git pulseaudio
+	git clone --single-branch --depth 1 https://github.com/mse-org/mseide-msegui.git

@@ -313,7 +313,7 @@ makeoptpurpose=6
 befcommandon=0
 makeoptionson=6
  3
- 1
+ 0
  2
  2
  63
@@ -637,8 +637,8 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=4
- 0,20
  0,-1073741823
+ 17,15
  0,-1073741823
  0,-1073741823
 bookmarks0=0
@@ -647,9 +647,9 @@ bookmarks2=0
 bookmarks3=0
 sourcefiles=4
  /home/roland/Documents/audio/pascalaudio-musicplayer/player.pas
- /home/roland/Documents/audio/pascalaudio-musicplayer/player/main.pas
+ /home/roland/Documents/audio/pascalaudio-musicplayer/main.pas
  /home/roland/Documents/audio/pascalaudio-musicplayer/log.pas
- /D:/pascal/msegui/musicplayer-project/version.pas
+ /home/roland/Documents/audio/pascalaudio-musicplayer/version.pas
 relpaths=4
  player.pas
  main.pas
@@ -676,7 +676,7 @@ order=4
  1
 tabsize=114
 firsttab=0
-index=0
+index=3
 [layout]
 windowlayout=552
  [mainfo.openform]
@@ -815,7 +815,7 @@ windowlayout=552
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=_mse_mainfo_mse_
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -934,7 +934,7 @@ windowlayout=552
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=componentpalettefo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -951,10 +951,10 @@ windowlayout=552
  active=0
  visible=1
  [objectinspectorfo.grid]
- propcolwidthref=498
- width0=184
+ propcolwidthref=483
+ width0=178
  sortdescend0=0
- width1=308
+ width1=299
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1100,7 +1100,7 @@ windowlayout=552
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=mainfo.panel1
+ stackedunder=objectinspectorfo
  parent=
  mdistate=0
  nx=0
@@ -1215,7 +1215,7 @@ windowlayout=552
  [_mse_mainfo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=objectinspectorfo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=3
  nx=0
