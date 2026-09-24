@@ -11,6 +11,7 @@ Supported sound formats:
 - flac
 - m4a
 - ogg
+- opus
 - wav
 
 ## Usage

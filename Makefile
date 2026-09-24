@@ -27,7 +27,7 @@ ifdef DEBUG
 #PFLAGS += -gl -O-
 PFLAGS += -gl
 else
-PFLAGS += -dRELEASE
+#PFLAGS += -dRELEASE
 #PFLAGS += -vm6058
 #PFLAGS += -vm4046
 #PFLAGS += -vm5062

@@ -54,13 +54,10 @@ uses
   
   pa_base,
   pa_stream,
-  pa_dec_oggvorbis,
-  pa_flac,
-  pa_wav,
-  pa_m4a,
   pa_register,
   pa_pulse_simple,
   
+  decoders,
   log;
 
 type
@@ -113,8 +110,7 @@ const
   );
 }
 var
-  litems, lextensions: TStrings;
-  lextensions2, larguments: msestringarty;
+  lextensions, larguments: msestringarty;
   lfilelist: filenamearty;
   lfilename: filenamety;
   i: integer;
@@ -124,19 +120,8 @@ begin
   fsource := nil;
   fdest := nil;
 
-  lextensions := TStringList.Create;
-  litems := PARegisteredGetList(partDecoder, lextensions);
-  if assigned(litems) then
-  begin
-    setlength(lextensions2, litems.Count);
-    for i := 0 to litems.Count - 1 do
-      lextensions2[i] := utf8tostring(copy(lextensions[i], 2));
-    litems.Free;
-  end;
-  lextensions.Free;
-
-  sortarray(lextensions2);
-  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions2));
+  lextensions := supportedextensions;
+  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions));
 
   larguments := getcommandlinearguments;
   for i := 1 to high(larguments) do
@@ -146,13 +131,13 @@ begin
 
       lfilelist := searchfiles('*', larguments[i]);
       for lfilename in lfilelist do
-        if checkfileext(lfilename, {cextensions}lextensions2) then
+        if checkfileext(lfilename, lextensions) then
           addfiletolist(lfilename);
     end else if fileexists(larguments[i]) then
     begin
       logln('[DEBUG] File exists "' + larguments[i] + '"');
 
-      if checkfileext(larguments[i], {cextensions}lextensions2) then
+      if checkfileext(larguments[i], lextensions) then
         addfiletolist(larguments[i]);
     end else
       logln('[DEBUG] Ignore parameter "' + larguments[i] + '"');
@@ -201,9 +186,6 @@ begin
 end;
 
 procedure tmainfo.playfile(const afilename: filenamety);
-var
-  lfilename: string;
-  ldecoder: TPAStreamSourceClass;
 begin
   logln('[DEBUG] Play "' + afilename + '"');
   pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
@@ -213,15 +195,13 @@ begin
     fdest.DataSource := nil;
   if assigned(fsource) then
     freeandnil(fsource);
-  lfilename := stringtoutf8(afilename);
   try
-    ldecoder := PARegisteredGetDecoderClass(lfilename, FALSE);
-    if not assigned(ldecoder) then
+    fsource := createsource(afilename);
+    if not assigned(fsource) then
     begin
       logln('[ERROR] No decoder for "' + afilename + '"');
       exit;
     end;
-    fsource := ldecoder.Create(TFileStream.Create(lfilename, fmOpenRead));
   except
     on e: exception do
     begin
