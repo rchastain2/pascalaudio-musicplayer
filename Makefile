@@ -49,6 +49,11 @@ distclean: clean
 	@rm -fv $(PROGRAM) $(PROGRAM).dbg $(PROGRAM).exe
 
 clone:
+ifeq ($(USER),roland)
+	git clone git@github.com:rchastain2/pascalaudio.git
+	git clone git@github.com:rchastain2/pulseaudio.git
+else
 	git clone --single-branch --depth 1 https://github.com/andrewd207/PascalAudio.git pascalaudio
 	git clone --single-branch --depth 1 https://github.com/andrewd207/fpc-pulseaudio.git pulseaudio
 	git clone --single-branch --depth 1 https://github.com/mse-org/mseide-msegui.git
+endif
