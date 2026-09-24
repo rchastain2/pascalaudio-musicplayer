@@ -152,7 +152,7 @@ begin
     begin
       logln('[DEBUG] File exists "' + larguments[i] + '"');
 
-      if checkfileext(lfilename, {cextensions}lextensions2) then
+      if checkfileext(larguments[i], {cextensions}lextensions2) then
         addfiletolist(larguments[i]);
     end else
       logln('[DEBUG] Ignore parameter "' + larguments[i] + '"');
@@ -203,16 +203,34 @@ end;
 procedure tmainfo.playfile(const afilename: filenamety);
 var
   lfilename: string;
+  ldecoder: TPAStreamSourceClass;
 begin
   logln('[DEBUG] Play "' + afilename + '"');
   pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
-  
+
+  if assigned(fdest) then
+    fdest.DataSource := nil;
   if assigned(fsource) then
     freeandnil(fsource);
   lfilename := stringtoutf8(afilename);
-  fsource := PARegisteredGetDecoderClass(lfilename, FALSE).Create(TFileStream.Create(lfilename, fmOpenRead));
-  
+  try
+    ldecoder := PARegisteredGetDecoderClass(lfilename, FALSE);
+    if not assigned(ldecoder) then
+    begin
+      logln('[ERROR] No decoder for "' + afilename + '"');
+      exit;
+    end;
+    fsource := ldecoder.Create(TFileStream.Create(lfilename, fmOpenRead));
+  except
+    on e: exception do
+    begin
+      logln('[ERROR] Cannot open "' + afilename + '": ' + utf8tostring(e.message));
+      fsource := nil;
+      exit;
+    end;
+  end;
+
   if not assigned(fdest) then
     fdest := PARegisteredGetDeviceOut('').Create;
   fdest.DataSource := fsource;
@@ -271,10 +289,13 @@ end;
 procedure tmainfo.mainfo_onterminated(const sender: TObject);
 begin
   logln('[DEBUG] mainfo_onterminated');
+  if assigned(fdest) then
+  begin
+    fdest.DataSource := nil;
+    freeandnil(fdest);
+  end;
   if assigned(fsource) then
     freeandnil(fsource);
-  if assigned(fdest) then
-    freeandnil(fdest);
 end;
 
 procedure tmainfo.bt_pause_onexecute(const sender: TObject);
@@ -309,7 +330,10 @@ begin
       begin
         logln('[DEBUG] tbutton(sender).name "' + utf8tostring(tbutton(sender).name) + '"');
         if tbutton(sender).name = 'bt_previous' then
-          dec(ffileindex);
+          if ffileindex > 0 then
+            dec(ffileindex, 2)
+          else
+            ffileindex := -1;
         if tbutton(sender).name = 'bt_stop' then
           tm_timer.enabled := FALSE;
       end;
