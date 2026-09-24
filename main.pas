@@ -54,10 +54,9 @@ uses
   
   pa_base,
   pa_stream,
-  pa_register,
-  pa_pulse_simple,
   
   decoders,
+  fadedest,
   log;
 
 type
@@ -84,10 +83,11 @@ type
     procedure bt_play_onexecute(const sender: TObject);
   private
     fsource: TPAStreamSource;
-    fdest: TPAAudioDestination;
+    fdest: TPAFadeDestination;
     ffilelist: filenamearty;
     ffileindex: integer;
     procedure addfiletolist(const afilename: filenamety);
+    procedure fadeout;
     procedure freeplayer;
     procedure playfile(const afilename: filenamety);
   end;
@@ -186,8 +186,21 @@ begin
   ffilelist[high(ffilelist)] := afilename;
 end;
 
+procedure tmainfo.fadeout;
+var
+  lstart: qword;
+begin
+  if not (assigned(fdest) and tm_timer.enabled and fdest.Working) then
+    exit;
+  fdest.FadeOut;
+  lstart := gettickcount64;
+  while not fdest.Silent and (gettickcount64 - lstart < 300) do
+    sleep(5);
+end;
+
 procedure tmainfo.freeplayer;
 begin
+  fadeout;
   if assigned(fdest) then
   begin
     fdest.DataSource := nil;
@@ -200,13 +213,14 @@ end;
 procedure tmainfo.playfile(const afilename: filenamety);
 begin
   logln('[DEBUG] Play "' + afilename + '"');
+  freeplayer;
+
   pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
   pb_progress.value := 0;
   bt_pause.caption := 'Pause';
   tm_timer.enabled := TRUE;
 
-  freeplayer;
   try
     fsource := createsource(afilename);
     if not assigned(fsource) then
@@ -223,7 +237,7 @@ begin
     end;
   end;
 
-  fdest := PARegisteredGetDeviceOut('').Create;
+  fdest := TPAFadeDestination.Create;
   fdest.DataSource := fsource;
   
   fsource.StartData;
@@ -292,11 +306,13 @@ begin
     begin
       if bt_pause.caption = 'Pause' then
       begin
+        fadeout;
         tm_timer.enabled := FALSE;
         lplayable.Pause;
         bt_pause.caption := 'Resume';
       end else
       begin
+        fdest.FadeIn;
         lplayable.Play;
         tm_timer.enabled := TRUE;
         bt_pause.caption := 'Pause';
@@ -313,6 +329,7 @@ begin
 
   if sender = bt_stop then
   begin
+    fadeout;
     tm_timer.enabled := FALSE;
     if assigned(fsource) then
       if fsource.GetInterface('IPAPlayable', lplayable) then
@@ -344,6 +361,7 @@ begin
   if assigned(fsource) then
     if fsource.GetInterface('IPAPlayable', lplayable) then
     begin
+      fdest.FadeIn;
       lplayable.Play;
       tm_timer.enabled := TRUE;
     end;
