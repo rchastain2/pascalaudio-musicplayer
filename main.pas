@@ -88,6 +88,7 @@ type
     ffilelist: filenamearty;
     ffileindex: integer;
     procedure addfiletolist(const afilename: filenamety);
+    procedure freeplayer;
     procedure playfile(const afilename: filenamety);
   end;
 
@@ -185,16 +186,27 @@ begin
   ffilelist[high(ffilelist)] := afilename;
 end;
 
+procedure tmainfo.freeplayer;
+begin
+  if assigned(fdest) then
+  begin
+    fdest.DataSource := nil;
+    freeandnil(fdest);
+  end;
+  if assigned(fsource) then
+    freeandnil(fsource);
+end;
+
 procedure tmainfo.playfile(const afilename: filenamety);
 begin
   logln('[DEBUG] Play "' + afilename + '"');
   pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
+  pb_progress.value := 0;
+  bt_pause.caption := 'Pause';
+  tm_timer.enabled := TRUE;
 
-  if assigned(fdest) then
-    fdest.DataSource := nil;
-  if assigned(fsource) then
-    freeandnil(fsource);
+  freeplayer;
   try
     fsource := createsource(afilename);
     if not assigned(fsource) then
@@ -211,8 +223,7 @@ begin
     end;
   end;
 
-  if not assigned(fdest) then
-    fdest := PARegisteredGetDeviceOut('').Create;
+  fdest := PARegisteredGetDeviceOut('').Create;
   fdest.DataSource := fsource;
   
   fsource.StartData;
@@ -269,13 +280,7 @@ end;
 procedure tmainfo.mainfo_onterminated(const sender: TObject);
 begin
   logln('[DEBUG] mainfo_onterminated');
-  if assigned(fdest) then
-  begin
-    fdest.DataSource := nil;
-    freeandnil(fdest);
-  end;
-  if assigned(fsource) then
-    freeandnil(fsource);
+  freeplayer;
 end;
 
 procedure tmainfo.bt_pause_onexecute(const sender: TObject);
@@ -303,22 +308,33 @@ procedure tmainfo.bt_next_onexecute(const sender: TObject);
 var
   lplayable: IPAPlayable;
 begin
-  if assigned(fsource) then
-    if fsource.GetInterface('IPAPlayable', lplayable) then
-    begin
-      if sender is tbutton then
-      begin
-        logln('[DEBUG] tbutton(sender).name "' + utf8tostring(tbutton(sender).name) + '"');
-        if tbutton(sender).name = 'bt_previous' then
-          if ffileindex > 0 then
-            dec(ffileindex, 2)
-          else
-            ffileindex := -1;
-        if tbutton(sender).name = 'bt_stop' then
-          tm_timer.enabled := FALSE;
-      end;
-      lplayable.Stop;
-    end;
+  if length(ffilelist) = 0 then
+    exit;
+
+  if sender = bt_stop then
+  begin
+    tm_timer.enabled := FALSE;
+    if assigned(fsource) then
+      if fsource.GetInterface('IPAPlayable', lplayable) then
+        lplayable.Stop;
+    exit;
+  end;
+
+  if sender = bt_previous then
+  begin
+    if ffileindex > 0 then
+      dec(ffileindex)
+    else
+      ffileindex := 0;
+  end else
+  begin
+    if ffileindex < high(ffilelist) then
+      inc(ffileindex)
+    else
+      exit;
+  end;
+
+  playfile(ffilelist[ffileindex]);
 end;
 
 procedure tmainfo.bt_play_onexecute(const sender: TObject);
