@@ -51,13 +51,15 @@ uses
   msekeyboard,
   msestrings,
   msearrayutils,
+  msesysintf,
+  mseformatpngread,
   
   pa_base,
   pa_stream,
   
   decoders,
   fadedest,
-  log;
+  utils;
 
 type
   tmainfo = class(tmainform)
@@ -116,6 +118,9 @@ var
   lfilename: filenamety;
   i: integer;
 begin
+  icon.loadfromfile(tosysfilepath(filedir(sys_getapplicationpath) + 'icon/pamp-32.png'));
+  pb_progress.frame.createfont;
+  
   setlength(ffilelist, 0);
   ffileindex := -1;
   fsource := nil;
@@ -148,6 +153,7 @@ begin
   if length(ffilelist) = 0 then
   begin
     logln('[DEBUG] No music to play');
+    pb_progress.frame.font.style := [fs_italic];
     pb_progress.frame.caption := 'No music to play';
   end else
   begin
@@ -214,7 +220,8 @@ procedure tmainfo.playfile(const afilename: filenamety);
 begin
   logln('[DEBUG] Play "' + afilename + '"');
   freeplayer;
-
+  
+  pb_progress.frame.font.style := [];
   pb_progress.frame.caption := unicodeformat('File %d / %d', [ffileindex + 1, length(ffilelist)]);
   sd_filename.value := filename(afilename);
   pb_progress.value := 0;
@@ -264,6 +271,7 @@ begin
     if ffileindex = high(ffilelist) then
     begin
       logln('[DEBUG] No more music to play');
+      pb_progress.frame.font.style := [fs_italic];
       pb_progress.frame.caption := 'No more music to play';
       sd_filename.value := '';
       tm_timer.enabled := FALSE;

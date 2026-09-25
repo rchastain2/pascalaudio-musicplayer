@@ -16,6 +16,10 @@ PFLAGS += -Fu$(MSEGUI)/lib/common/kernel/$(OS)
 PFLAGS += -Fupascalaudio/pascalaudioio
 PFLAGS += -Fupascalaudio/pascalaudiosuite
 PFLAGS += -Fupulseaudio
+
+SKIN := $(HOME)/Documents/pascal/msegui/studies/skins/blue
+PFLAGS += -Fu$(SKIN)
+
 PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
 
@@ -36,7 +40,7 @@ else
 PFLAGS += -XX -Xs -CX
 endif
 
-PROGRAM := player
+PROGRAM := pamp
 SOURCES := $(filter-out $(PROGRAM).pas,$(wildcard *.pas))
 
 $(PROGRAM): $(PROGRAM).pas $(SOURCES)

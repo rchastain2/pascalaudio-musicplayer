@@ -9,5 +9,7 @@ pulseaudio/
 *.log
 *.o
 *.ppu
+*.sh
+!pamp.sh
 
-player
+pamp

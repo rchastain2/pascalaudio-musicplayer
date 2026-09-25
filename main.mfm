@@ -1,18 +1,18 @@
 object mainfo: tmainfo
-  bounds_x = 505
-  bounds_y = 209
+  bounds_x = 468
+  bounds_y = 137
   bounds_cx = 504
-  bounds_cy = 224
+  bounds_cy = 256
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     17
     504
-    207
+    239
   )
   mainmenu = mm_menu
-  caption = 'Music Player'
+  caption = 'PAMP'
   windowopacity = -Inf
   oncreate = mainfo_oncreate
   onterminated = mainfo_onterminated
@@ -20,7 +20,7 @@ object mainfo: tmainfo
   moduleclassname = 'tmainform'
   object bt_quit: tbutton
     bounds_x = 416
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
@@ -33,7 +33,7 @@ object mainfo: tmainfo
     frame.localprops1 = []
     taborder = 1
     bounds_x = 16
-    bounds_y = 74
+    bounds_y = 106
     bounds_cx = 472
     anchors = [an_left, an_top, an_right]
     bar_face.fade_pos.count = 1
@@ -55,7 +55,7 @@ object mainfo: tmainfo
     color = -2147483645
     taborder = 2
     bounds_x = 16
-    bounds_y = 16
+    bounds_y = 32
     bounds_cx = 472
     bounds_cy = 33
     anchors = [an_left, an_top, an_right]
@@ -82,7 +82,7 @@ object mainfo: tmainfo
     )
     taborder = 3
     bounds_x = 16
-    bounds_y = 102
+    bounds_y = 134
     bounds_cx = 472
     bounds_cy = 37
     anchors = [an_left, an_top, an_right]
@@ -92,7 +92,7 @@ object mainfo: tmainfo
   object bt_pause: tbutton
     taborder = 4
     bounds_x = 336
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
@@ -103,7 +103,7 @@ object mainfo: tmainfo
   object bt_next: tbutton
     taborder = 5
     bounds_x = 256
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     anchors = [an_top, an_right]
@@ -114,7 +114,7 @@ object mainfo: tmainfo
   object bt_previous: tbutton
     taborder = 6
     bounds_x = 176
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     state = [as_localcaption, as_localonexecute]
@@ -124,7 +124,7 @@ object mainfo: tmainfo
   object bt_stop: tbutton
     taborder = 7
     bounds_x = 96
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     state = [as_localcaption, as_localonexecute]
@@ -134,7 +134,7 @@ object mainfo: tmainfo
   object bt_play: tbutton
     taborder = 8
     bounds_x = 16
-    bounds_y = 160
+    bounds_y = 192
     bounds_cx = 72
     bounds_cy = 24
     state = [as_localdisabled, as_localcaption, as_localonexecute]
@@ -166,12 +166,12 @@ object mainfo: tmainfo
         caption = 'Help'
         state = [as_localcaption, as_localonexecute]
       end>
-    left = 400
-    top = 8
+    left = 384
+    top = 72
   end
   object tm_timer: ttimer
     ontimer = tm_timer_ontimer
-    left = 400
-    top = 40
+    left = 280
+    top = 72
   end
 end

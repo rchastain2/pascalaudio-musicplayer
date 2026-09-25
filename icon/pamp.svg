@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <line id="rayon" x1="128" y1="128" x2="128" y2="26" stroke="#FFF3DC" stroke-width="8" stroke-linecap="round"/>
+  </defs>
+  <circle cx="128" cy="128" r="120" fill="#F59E2B"/>
+  <circle cx="128" cy="128" r="106" fill="#F25C6B" stroke="#FFF3DC" stroke-width="8"/>
+  <use xlink:href="#rayon"/>
+  <use xlink:href="#rayon" transform="rotate(45 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(90 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(135 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(180 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(225 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(270 128 128)"/>
+  <use xlink:href="#rayon" transform="rotate(315 128 128)"/>
+  <circle cx="128" cy="128" r="30" fill="#FFF3DC"/>
+  <circle cx="128" cy="128" r="8" fill="#3A2A2A"/>
+</svg>
