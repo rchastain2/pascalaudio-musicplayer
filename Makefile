@@ -17,8 +17,8 @@ PFLAGS += -Fupascalaudio/pascalaudioio
 PFLAGS += -Fupascalaudio/pascalaudiosuite
 PFLAGS += -Fupulseaudio
 
-SKIN := $(HOME)/Documents/pascal/msegui/studies/skins/blue
-PFLAGS += -Fu$(SKIN)
+#SKIN := $(HOME)/Documents/pascal/msegui/studies/skins/blue
+#PFLAGS += -Fu$(SKIN)
 
 PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits

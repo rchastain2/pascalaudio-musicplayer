@@ -150,7 +150,7 @@ options=137
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=2
+ index=3
  [projectoptionsfo]
  stackedunder=
  x=205
@@ -320,7 +320,7 @@ makeoptionson=7
  0
  2
  2
- 63
+ 0
  63
  63
 aftcommandon=0
@@ -333,7 +333,7 @@ unitdirson=6
  65599
 uid=0
 macroon=1
- 63
+ 0
 macronames=1
  SKIN
 macrovalues=1
@@ -718,7 +718,7 @@ windowlayout=554
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=componentpalettefo
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -819,7 +819,7 @@ windowlayout=554
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=mainfo.panel1
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -1104,7 +1104,7 @@ windowlayout=554
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=_mse_mainfo_mse_
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0
@@ -1181,7 +1181,7 @@ windowlayout=554
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=mainfo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0

@@ -15,8 +15,8 @@ uses
   msefont,
   msegraphics,
   main,
-  utils,
-  loadskin;
+  utils{,
+  loadskin};
   
 begin
   logln('PascalAudio Music Player ' + {$I version} + ' (' + {$I %DATE%} + ', ' + {$I %TIME%} + ', FPC ' + {$I %FPCVERSION%} + ', ' + {$I %FPCTARGETOS%} + ')', TRUE);
