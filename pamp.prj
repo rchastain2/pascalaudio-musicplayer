@@ -732,7 +732,7 @@ windowlayout=554
  rcx=0
  rcy=0
  wsize=0
- active=0
+ active=1
  visible=1
  [targetconsolefo]
  splitdir=0
@@ -819,7 +819,7 @@ windowlayout=554
  [findinfilefo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -952,7 +952,7 @@ windowlayout=554
  rcx=0
  rcy=0
  wsize=0
- active=1
+ active=0
  visible=1
  [objectinspectorfo.grid]
  propcolwidthref=414

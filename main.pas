@@ -127,38 +127,37 @@ begin
   fdest := nil;
 
   lextensions := supportedextensions;
-  logln('[DEBUG] Supported extensions ' + concatstrings(lextensions));
+  logln('Supported extensions: ' + concatstrings(lextensions));
 
   larguments := getcommandlinearguments;
+  
   for i := 1 to high(larguments) do
     if directoryexists(larguments[i]) then
     begin
-      logln('[DEBUG] Directory exists "' + larguments[i] + '"');
-
+      logln('Directory: "' + larguments[i] + '"');
       lfilelist := searchfiles('*', larguments[i]);
+      sortarray(lfilelist);
       for lfilename in lfilelist do
         if checkfileext(lfilename, lextensions) then
           addfiletolist(lfilename);
-    end else if fileexists(larguments[i]) then
-    begin
-      logln('[DEBUG] File exists "' + larguments[i] + '"');
-
-      if checkfileext(larguments[i], lextensions) then
-        addfiletolist(larguments[i]);
     end else
-      logln('[DEBUG] Ignore parameter "' + larguments[i] + '"');
-
-  logln('[DEBUG] Found ' + inttostrmse(length(ffilelist)) + ' files');
-
-  if length(ffilelist) = 0 then
+    if fileexists(larguments[i]) then
+    begin
+      logln('File: "' + larguments[i] + '"');
+      if checkfileext(larguments[i], lextensions) then
+        addfiletolist(larguments[i])
+      else
+        logln('Unsupported extension: "' + larguments[i] + '"');
+    end else
+      logln('File not found: "' + larguments[i] + '"');
+  
+  if length(ffilelist) > 0 then
+    tm_timer.enabled := TRUE
+  else
   begin
-    logln('[DEBUG] No music to play');
+    logln('No music to play');
     pb_progress.frame.font.style := [fs_italic];
     pb_progress.frame.caption := 'No music to play';
-  end else
-  begin
-    sortarray(ffilelist);
-    tm_timer.enabled := TRUE;
   end;
 
   pb_progress.format := '';
@@ -171,7 +170,7 @@ end;
 
 procedure tmainfo.mainfo_onkeyup(const sender: twidget; var ainfo: keyeventinfoty);
 begin
-  logln(unicodeformat('[DEBUG] mainfo_onkeyup(%d)', [ainfo.key]));
+  logln(unicodeformat('mainfo_onkeyup ainfo.key=%d', [ainfo.key]));
 
   case ainfo.key of
     KEY_ESCAPE, KEY_Q:
@@ -187,7 +186,7 @@ end;
 
 procedure tmainfo.addfiletolist(const afilename: filenamety);
 begin
-  logln('[DEBUG] Add file "' + afilename + '"');
+  logln('Add "' + afilename + '"');
   setlength(ffilelist, length(ffilelist) + 1);
   ffilelist[high(ffilelist)] := afilename;
 end;
@@ -218,7 +217,7 @@ end;
 
 procedure tmainfo.playfile(const afilename: filenamety);
 begin
-  logln('[DEBUG] Play "' + afilename + '"');
+  logln('Play "' + afilename + '"');
   freeplayer;
   
   pb_progress.frame.font.style := [];
@@ -232,13 +231,13 @@ begin
     fsource := createsource(afilename);
     if not assigned(fsource) then
     begin
-      logln('[ERROR] No decoder for "' + afilename + '"');
+      logln('No decoder for "' + afilename + '"');
       exit;
     end;
   except
     on e: exception do
     begin
-      logln('[ERROR] Cannot open "' + afilename + '": ' + utf8tostring(e.message));
+      logln('Cannot open "' + afilename + '": ' + utf8tostring(e.message));
       fsource := nil;
       exit;
     end;
@@ -255,8 +254,7 @@ var
   lplayable: IPAPlayable;
   lpos, lposmax: Double;
 begin
-{$IFDEF DEBUG}
-  if assigned(fdest) then
+ {if assigned(fdest) then
   begin
     Write(formatdatetime('hh:nn:ss:zzz', now), ' fdest is assigned. ');
     if fdest.Working then
@@ -264,13 +262,12 @@ begin
     else
       WriteLn('fdest is NOT working.')
   end else
-    WriteLn(formatdatetime('hh:nn:ss:zzz', now), ' fdest is NOT assigned.');
-{$ENDIF}
+    WriteLn(formatdatetime('hh:nn:ss:zzz', now), ' fdest is NOT assigned.');}
   if not assigned(fdest)
   or not fdest.Working then
     if ffileindex = high(ffilelist) then
     begin
-      logln('[DEBUG] No more music to play');
+      logln('No more music to play');
       pb_progress.frame.font.style := [fs_italic];
       pb_progress.frame.caption := 'No more music to play';
       sd_filename.value := '';
@@ -301,7 +298,7 @@ end;
 
 procedure tmainfo.mainfo_onterminated(const sender: TObject);
 begin
-  logln('[DEBUG] mainfo_onterminated');
+  logln('mainfo_onterminated');
   freeplayer;
 end;
 
