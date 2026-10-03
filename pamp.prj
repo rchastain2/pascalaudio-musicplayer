@@ -120,7 +120,7 @@ options=137
   -ghl -O-
   -B
   -O2 -XX -Xs -CX
-  -Fu$SKINS
+  -Fu$SKIN
   -dUSEPULSE
   -FUunits
  sortdescend8=0
@@ -150,7 +150,7 @@ options=137
  index=0
  [projectoptionsfo.tabwidget]
  firsttab=0
- index=3
+ index=2
  [projectoptionsfo]
  stackedunder=
  x=205
@@ -302,7 +302,7 @@ makeoptions=7
  -ghl -O-
  -B
  -O2 -XX -Xs -CX
- -Fu$SKINS
+ -Fu$SKIN
  -dUSEPULSE
  -FUunits
 reversepathorder=0
@@ -320,7 +320,7 @@ makeoptionson=7
  0
  2
  2
- 0
+ 63
  63
  63
 aftcommandon=0
@@ -332,12 +332,15 @@ unitdirson=6
  65599
  65599
 uid=0
-macroon=1
- 0
-macronames=1
+macroon=2
+ 1
+ 2
+macronames=2
  SKIN
-macrovalues=1
- $HOME/Documents/pascal/msegui/studies/skins/blue
+ SKIN
+macrovalues=2
+ skins/dark
+ skins/light
 groupcomments=6
  
  
@@ -563,7 +566,7 @@ moduletypes=1
  TMAINFO
 modulefiles=1
  /home/roland/Documents/audio/pascalaudio-musicplayer/main.mfm
-macrogroup=0
+macrogroup=1
 forcezorder=0
 stripmessageesc=0
 copymessages=0
@@ -645,8 +648,8 @@ finddtext=
 findhistory=0
 findoptions=1
 editpos=3
- 0,-1073741823
- 19,54
+ 2,18
+ 0,54
  0,-1073741823
 bookmarks0=0
 bookmarks1=0
@@ -678,7 +681,7 @@ order=3
  1
 tabsize=114
 firsttab=0
-index=2
+index=0
 [layout]
 windowlayout=554
  [mainfo.openform]
@@ -718,7 +721,7 @@ windowlayout=554
  [mainfo]
  splitdir=0
  useroptions=301990011
- stackedunder=mainfo.panel1
+ stackedunder=
  parent=
  mdistate=0
  nx=0
@@ -938,7 +941,7 @@ windowlayout=554
  [objectinspectorfo]
  splitdir=0
  useroptions=268451947
- stackedunder=
+ stackedunder=mainfo.panel1
  parent=
  mdistate=0
  nx=0
@@ -1104,7 +1107,7 @@ windowlayout=554
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=mainfo
+ stackedunder=_mse_mainfo_mse_
  parent=
  mdistate=0
  nx=0
@@ -1181,7 +1184,7 @@ windowlayout=554
  [mainfo.panel1]
  splitdir=2
  useroptions=302022123
- stackedunder=_mse_mainfo_mse_
+ stackedunder=mainfo
  parent=
  mdistate=0
  nx=0

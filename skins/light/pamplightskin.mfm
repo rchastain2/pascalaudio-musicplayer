@@ -1,0 +1,173 @@
+object pamplightskinmo: tpamplightskinmo
+  bounds_cx = 483
+  bounds_cy = 184
+  moduleclassname = 'tmsedatamodule'
+  object windowface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16775404
+      15983566
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 16
+  end
+  object buttonface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16776696
+      15718591
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 40
+  end
+  object vbuttonface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16776696
+      15718591
+    )
+    left = 24
+    top = 64
+  end
+  object menuface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16643044
+      16115410
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 88
+  end
+  object menuactiveface: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16496744
+      16224351
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 112
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    colors.count = 14
+    colors.items = <
+      item
+        color = -1879048187
+        rgb = 16247770
+      end
+      item
+        color = -1879048186
+        rgb = 16776696
+      end
+      item
+        color = -1879048184
+        rgb = 15720393
+      end
+      item
+        color = -1879048183
+        rgb = 3810608
+      end
+      item
+        color = -1879048182
+        rgb = 16777215
+      end
+      item
+        color = -1879048181
+        rgb = 14700650
+      end
+      item
+        color = -1879048179
+        rgb = 3810608
+      end
+      item
+        color = -1879048173
+        rgb = 11573904
+      end
+      item
+        color = -1879048172
+        rgb = 16776696
+      end
+      item
+        color = -1610612734
+        rgb = 3810608
+      end
+      item
+        color = -1610612732
+        rgb = 15972774
+      end
+      item
+        color = -1610612733
+        rgb = 13123674
+      end
+      item
+        color = -1610612715
+        rgb = 15751274
+      end
+      item
+        color = -1342177280
+        rgb = 16507088
+      end>
+    colors.colorshadow = 13481884
+    colors.colordkshadow = 10718322
+    colors.colorlight = 16777215
+    colors.colorhighlight = 16775404
+    colors.colorframe = 12165768
+    container_face = windowface
+    button_face = buttonface
+    databutton_face = buttonface
+    framebutton_face = buttonface
+    stepbutton_face = buttonface
+    sb_horz_facebutton = buttonface
+    sb_horz_faceendbutton = buttonface
+    sb_vert_facebutton = vbuttonface
+    sb_vert_faceendbutton = vbuttonface
+    slider_sb_horz_facebutton = buttonface
+    slider_sb_horz_faceendbutton = buttonface
+    slider_sb_vert_facebutton = vbuttonface
+    slider_sb_vert_faceendbutton = vbuttonface
+    grid_fixrows_face = buttonface
+    popupmenu_face = menuface
+    popupmenu_itemfaceactive = menuactiveface
+    mainmenu_face = menuface
+    mainmenu_itemfaceactive = menuactiveface
+    mainmenu_popupface = menuface
+    mainmenu_popupitemfaceactive = menuactiveface
+    mainmenuwidget_face = menuface
+    mainmenuwidget_itemfaceactive = menuactiveface
+    mainmenuwidget_popupface = menuface
+    mainmenuwidget_popupitemfaceactive = menuactiveface
+    widget_color = -2147483645
+    left = 24
+    top = 136
+  end
+end

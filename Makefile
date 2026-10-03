@@ -17,8 +17,9 @@ PFLAGS += -Fupascalaudio/pascalaudioio
 PFLAGS += -Fupascalaudio/pascalaudiosuite
 PFLAGS += -Fupulseaudio
 
-#SKIN := $(HOME)/Documents/pascal/msegui/studies/skins/blue
-#PFLAGS += -Fu$(SKIN)
+SKIN := skins/dark
+#SKIN := skins/light
+PFLAGS += -Fu$(SKIN)
 
 PFLAGS += -dUSEPULSE
 PFLAGS += -FUunits
@@ -44,7 +45,10 @@ PROGRAM := pamp
 SOURCES := $(filter-out $(PROGRAM).pas,$(wildcard *.pas))
 
 $(PROGRAM): $(PROGRAM).pas $(SOURCES)
+	@rm -f units/loadskin.*
 	@$(PC) $(PFLAGS) $<
+
+.PHONY: $(PROGRAM) clean distclean
 
 clean:
 	rm -fv $(TARGETS) units/*.o units/*.ppu *.bak *.bak? *.sta
